@@ -1,41 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ORTBH Games</title>
-  <style>
-    body{font-family:Arial; margin:0; background:#f6fbff; color:#123;}
-    header{padding:28px 16px; text-align:center;}
-    .wrap{max-width:900px; margin:0 auto; padding:0 16px 28px;}
-    .grid{display:grid; gap:14px;}
-    .card{background:#fff; border-radius:18px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.06);}
-    a{display:block; padding:12px 14px; border-radius:12px; background:#dff3ff; text-decoration:none; color:#123; margin-top:10px;}
-    a:hover{background:#cfeeff;}
-    .note{opacity:.75}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>חזרה לאנגלית יב׳ – משחק מילון</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>🎮 ORTBH Games</h1>
-    <div class="note">בחרו מקצוע</div>
-  </header>
 
-  <div class="wrap grid">
-    <div class="card">
-      <h2>אנגלית</h2>
-      <a href="english/index.html">כניסה למשחקי אנגלית</a>
+  <!-- ===== מסך פתיחה ===== -->
+  <div id="screen-intro" class="screen active">
+    <div class="intro-bg-circles">
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+      <div class="circle c3"></div>
     </div>
-
-    <div class="card">
-      <h2>היסטוריה</h2>
-      <a href="history/index.html">כניסה למשחקי היסטוריה</a>
-    </div>
-
-    <div class="card">
-      <h2>אזרחות</h2>
-      <a href="civics/index.html">כניסה למשחקי אזרחות</a>
+    <div class="intro-content">
+      <div class="intro-logo">📚</div>
+      <h1 class="intro-title">מילון אנגלית</h1>
+      <p class="intro-subtitle">חזרה למבחן – יב׳</p>
+      <p class="intro-desc">47 מילים לתרגול – כמה אתם זוכרים?</p>
+      <div class="intro-badges">
+        <span class="badge">❓ 10 שאלות</span>
+        <span class="badge">⭐ 100 נקודות</span>
+        <span class="badge">⏱ 60 שניות</span>
+      </div>
+      <button id="btn-start" class="btn-primary">
+        <span>בואו נתחיל!</span>
+        <span class="btn-arrow">←</span>
+      </button>
+      <p class="intro-credit">מבוסס על "דפי חזרה יב אנגלית" | נכון + 10 נקודות · טעות − 2 נקודות</p>
     </div>
   </div>
+
+  <!-- ===== מסך שאלה ===== -->
+  <div id="screen-question" class="screen">
+    <header class="game-header">
+      <div class="header-top">
+        <div class="stat-group">
+          <span class="stat-label">שאלה</span>
+          <span class="stat-val" id="q-number">1 / 10</span>
+        </div>
+        <div class="stat-group timer-group">
+          <span class="stat-label">⏱</span>
+          <span class="stat-val" id="timer-val">60</span>
+        </div>
+        <div class="stat-group">
+          <span class="stat-label">ניקוד</span>
+          <span class="stat-val" id="score-val">0</span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </header>
+
+    <main class="question-main">
+      <div class="question-card">
+        <span class="q-category" id="q-category"></span>
+        <p class="q-text" id="q-text"></p>
+      </div>
+      <div class="options-grid" id="options-grid"></div>
+    </main>
+  </div>
+
+  <!-- ===== מסך משוב ===== -->
+  <div id="screen-feedback" class="screen">
+    <div class="feedback-card">
+      <div class="fb-icon" id="fb-icon"></div>
+      <h2 class="fb-title" id="fb-title"></h2>
+      <p class="fb-text" id="fb-text"></p>
+      <div class="fb-points" id="fb-points"></div>
+      <button id="btn-next" class="btn-primary">
+        <span>המשך</span>
+        <span class="btn-arrow">←</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== מסך סיום ===== -->
+  <div id="screen-end" class="screen">
+    <div class="end-bg-circles">
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+    </div>
+    <div class="end-content">
+      <div class="end-trophy" id="end-trophy">🏆</div>
+      <h2 class="end-title">סיימת את המשחק!</h2>
+      <div class="end-score-wrap">
+        <span class="end-score-num" id="end-score">0</span>
+        <span class="end-score-label">/ 100</span>
+      </div>
+      <div class="end-progress-track">
+        <div class="end-progress-fill" id="end-progress-fill"></div>
+      </div>
+      <div class="end-message" id="end-message"></div>
+      <div class="end-profile" id="end-profile"></div>
+      <div class="end-stats" id="end-stats"></div>
+      <button id="btn-restart" class="btn-primary btn-white">
+        <span>שחק שוב</span>
+        <span class="btn-arrow">🔄</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
 </body>
 </html>
